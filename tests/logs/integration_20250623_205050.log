@@ -19,6 +19,3 @@ frontend_accessibility: PASS
 ---------------------
 
 All required features/endpoints were tested.
-All tests passed. Servers left running for manual inspection.
-Committed changes after successful tests.
-Pushed changes to remote.
