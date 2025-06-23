@@ -1,8 +1,10 @@
 from flask import Flask, jsonify
 from backend.utils.lol_api import LoLDataDragonAPI
 import os
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 lol_api = LoLDataDragonAPI()
 
 @app.route('/api/data')
