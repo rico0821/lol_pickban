@@ -143,7 +143,20 @@ def run_all_tests(logger):
         # Champions
         logger.log("Testing /api/champions...")
         resp = requests.get(f'{BACKEND_URL}/api/champions', timeout=20)
-        results['get_champions_api'] = resp.status_code == 200 and 'champions' in resp.json()
+        data = resp.json()
+        champions = data.get('champions', [])
+        if resp.status_code == 200 and isinstance(champions, list) and len(champions) > 0:
+            # Check required fields for each champion
+            valid = all(
+                isinstance(c, dict) and 'champion_id' in c and 'name' in c and 'icon_url' in c
+                for c in champions
+            )
+            results['get_champions_api'] = valid
+            if not valid:
+                logger.log("FAIL: One or more champions missing required fields.")
+        else:
+            results['get_champions_api'] = False
+            logger.log(f"FAIL: No champions found or invalid response: {data}")
         logger.log(f"get_champions_api: {results['get_champions_api']}")
         covered_ids.add('get-champions')
         # Frontend
