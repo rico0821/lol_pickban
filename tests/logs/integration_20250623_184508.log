@@ -1,0 +1,23 @@
+Ensuring ports 5001 and 3001 are free...
+Ports are now free.
+Starting backend on port 5001...
+Backend started.
+Starting frontend on port 3001...
+Waiting for frontend to be ready...
+Frontend started.
+Testing backend health...
+backend_api_health: True
+Testing /api/champions...
+get_champions_api: True
+Testing draft start...
+draft_start: False
+Test error: Expecting value: line 1 column 1 (char 0)
+
+--- Test Summary ---
+backend_api_health: PASS
+get_champions_api: PASS
+draft_start: FAIL
+---------------------
+
+FAIL: The following required features/endpoints were NOT tested: ['draft-action', 'draft-state', 'frontend-access']
+Some tests failed. Servers left running for debugging.

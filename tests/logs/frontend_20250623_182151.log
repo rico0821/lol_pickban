@@ -1,0 +1,24 @@
+[INFO] Starting frontend server with command: npm.cmd start
+[INFO] Environment: PORT=3001, LOL_PICKBAN_FRONTEND_PORT=3001
+[STDOUT] 
+[STDOUT] > frontend@0.1.0 start
+[STDOUT] > react-scripts start
+[STDOUT] 
+[STDERR] (node:27220) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+[STDERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+[STDERR] (node:27220) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+[STDOUT] Starting the development server...
+[STDOUT] 
+[STDOUT] Compiled successfully!
+[STDOUT] 
+[STDOUT] You can now view frontend in the browser.
+[STDOUT] 
+[STDOUT]   http://localhost:3001
+[STDOUT] 
+[STDOUT] Note that the development build is not optimized.
+[STDOUT] To create a production build, use npm run build.
+[STDOUT] 
+[STDOUT] webpack compiled [1m[32msuccessfully[39m[22m
+[STDOUT] Files successfully emitted, waiting for typecheck results...
+[STDOUT] Issues checking in progress...
+[STDOUT] No issues found.

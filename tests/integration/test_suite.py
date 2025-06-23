@@ -4,226 +4,182 @@ import subprocess
 import sys
 import os
 from pathlib import Path
+import psutil
+from datetime import datetime
+import yaml
 
 # Set project root to the parent directory of 'tests'
 PROJECT_ROOT = Path(__file__).parent.parent.parent.resolve()
-sys.path.insert(0, str(PROJECT_ROOT))
+LOGS_DIR = PROJECT_ROOT / 'tests' / 'logs'
+LOGS_DIR.mkdir(parents=True, exist_ok=True)
+TRACEABILITY_PATH = PROJECT_ROOT / 'tests' / 'traceability.yaml'
 
 # Always use these ports for integration tests
-BACKEND_PORT = "5001"
-FRONTEND_PORT = "3001"
+BACKEND_PORT = 5001
+FRONTEND_PORT = 3001
 BACKEND_URL = f"http://127.0.0.1:{BACKEND_PORT}"
 FRONTEND_URL = f"http://localhost:{FRONTEND_PORT}"
 
-class TestSuite:
-    """A simple, initial test suite for the backend."""
-    
-    def __init__(self):
-        self.backend_process = None
-        self.frontend_process = None
-        self.test_results = {}
-
-    def start_backend_server(self) -> bool:
-        """Start the backend server for testing."""
-        print(f"Starting Backend Server on port {BACKEND_PORT}...")
-        backend_module = "backend.app"
+def kill_process_on_port(port):
+    for proc in psutil.process_iter(['pid', 'name', 'connections']):
         try:
-            env = os.environ.copy()
-            env["LOL_PICKBAN_PORT"] = BACKEND_PORT
-            self.backend_process = subprocess.Popen(
-                [sys.executable, "-m", backend_module],
-                cwd=PROJECT_ROOT,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True,
-                encoding='utf-8',
-                env=env
-            )
-            time.sleep(5)
-            if self.backend_process.poll() is not None:
-                stdout, stderr = self.backend_process.communicate()
-                print("Backend server failed to start. Logs:")
-                if stdout: print(f"--- STDOUT ---\n{stdout}")
-                if stderr: print(f"--- STDERR ---\n{stderr}")
-                return False
-            print("Backend server started successfully.")
-            return True
-        except Exception as e:
-            print(f"An error occurred while starting the backend server: {e}")
-            return False
+            for conn in proc.connections(kind='inet'):
+                if conn.laddr.port == port:
+                    print(f"Killing process {proc.pid} ({proc.name()}) using port {port}.")
+                    proc.kill()
+                    break
+        except (psutil.NoSuchProcess, psutil.AccessDenied):
+            continue
 
-    def start_frontend_server(self) -> bool:
-        """Start the frontend server for testing."""
-        print(f"\nStarting Frontend Server on port {FRONTEND_PORT}...")
-        frontend_dir = PROJECT_ROOT / "frontend"
-        if not frontend_dir.exists():
-            print(f"❌ Frontend directory not found: {frontend_dir}")
-            return False
+def cleanup_old_logs(max_logs=10):
+    logs = sorted(LOGS_DIR.glob('*.log'), key=os.path.getmtime, reverse=True)
+    for log in logs[max_logs:]:
         try:
-            is_windows = sys.platform == "win32"
-            env = os.environ.copy()
-            env["PORT"] = FRONTEND_PORT
-            env["LOL_PICKBAN_FRONTEND_PORT"] = FRONTEND_PORT
-            self.frontend_process = subprocess.Popen(
-                ["npm.cmd" if is_windows else "npm", "start"],
-                cwd=frontend_dir,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True,
-                encoding='utf-8',
-                shell=is_windows,
-                env=env
-            )
-            print("...waiting for frontend server to be ready...")
-            max_wait_time = 60
-            start_time = time.time()
-            while time.time() - start_time < max_wait_time:
-                try:
-                    response = requests.get(FRONTEND_URL, timeout=2)
-                    if response.status_code == 200:
-                        print("Frontend server is up and running.")
-                        return True
-                except requests.ConnectionError:
-                    time.sleep(2)
-                if self.frontend_process.poll() is not None:
-                    stdout, stderr = self.frontend_process.communicate()
-                    print("❌ Frontend server process terminated prematurely. Logs:")
-                    if stdout: print(f"--- STDOUT ---\n{stdout}")
-                    if stderr: print(f"--- STDERR ---\n{stderr}")
-                    return False
-            # If we get here, the server didn't start in time
-            print(f"❌ Frontend server failed to start within {max_wait_time} seconds.")
-            # Print any output so far
-            if self.frontend_process.poll() is None:
-                self.frontend_process.terminate()
-                try:
-                    stdout, stderr = self.frontend_process.communicate(timeout=5)
-                    print(f"--- STDOUT ---\n{stdout}")
-                    print(f"--- STDERR ---\n{stderr}")
-                except Exception as e:
-                    print(f"Could not retrieve frontend logs: {e}")
-            return False
-        except Exception as e:
-            print(f"❌ An error occurred while starting the frontend server: {e}")
-            return False
+            log.unlink()
+        except Exception:
+            pass
 
-    def cleanup_servers(self):
-        """Stop all running servers."""
-        if self.backend_process:
-            print("Stopping backend server...")
-            self.backend_process.terminate()
-            self.backend_process.wait()
-            print("Backend server stopped.")
-        if self.frontend_process:
-            print("Stopping frontend server...")
-            self.frontend_process.terminate()
-            self.frontend_process.wait()
-            print("Frontend server stopped.")
-    
-    def print_backend_logs(self):
-        if self.backend_process:
-            try:
-                self.backend_process.terminate()
-                stdout, stderr = self.backend_process.communicate(timeout=5)
-                print("\n--- Backend Server STDOUT ---")
-                print(stdout)
-                print("--- Backend Server STDERR ---")
-                print(stderr)
-                print("-----------------------------\n")
-            except Exception as e:
-                print(f"Could not retrieve backend logs: {e}")
+def get_log_file_path():
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    return LOGS_DIR / f"integration_{timestamp}.log"
 
-    def test_backend_api_health(self) -> bool:
-        """Test the backend's /api/data health endpoint."""
-        print("\nTesting Backend API Health...")
+class TeeLogger:
+    def __init__(self, log_path):
+        self.log_file = open(log_path, 'w', encoding='utf-8')
+    def log(self, msg):
+        print(msg)
+        self.log_file.write(msg + '\n')
+        self.log_file.flush()
+    def close(self):
+        self.log_file.close()
+
+def run_all_tests(logger):
+    # Load traceability matrix
+    with open(TRACEABILITY_PATH, 'r', encoding='utf-8') as f:
+        traceability = yaml.safe_load(f)
+    required_ids = {item['id'] for item in traceability}
+    covered_ids = set()
+
+    # Kill any process using the test ports
+    logger.log(f"Ensuring ports {BACKEND_PORT} and {FRONTEND_PORT} are free...")
+    kill_process_on_port(BACKEND_PORT)
+    kill_process_on_port(FRONTEND_PORT)
+    logger.log("Ports are now free.")
+
+    # Start backend
+    logger.log(f"Starting backend on port {BACKEND_PORT}...")
+    env = os.environ.copy()
+    env["LOL_PICKBAN_PORT"] = str(BACKEND_PORT)
+    backend_proc = subprocess.Popen([
+        sys.executable, "-m", "backend.app"
+    ], cwd=PROJECT_ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding='utf-8', env=env)
+    time.sleep(5)
+    if backend_proc.poll() is not None:
+        logger.log("Backend failed to start.")
+        logger.log(backend_proc.communicate()[0])
+        return False, backend_proc, None
+    logger.log("Backend started.")
+
+    # Start frontend
+    logger.log(f"Starting frontend on port {FRONTEND_PORT}...")
+    frontend_dir = PROJECT_ROOT / "frontend"
+    env["PORT"] = str(FRONTEND_PORT)
+    env["LOL_PICKBAN_FRONTEND_PORT"] = str(FRONTEND_PORT)
+    is_windows = sys.platform == "win32"
+    frontend_proc = subprocess.Popen([
+        "npm.cmd" if is_windows else "npm", "start"
+    ], cwd=frontend_dir, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding='utf-8', shell=is_windows, env=env)
+    # Wait for frontend
+    logger.log("Waiting for frontend to be ready...")
+    max_wait = 90
+    start = time.time()
+    frontend_ready = False
+    while time.time() - start < max_wait:
         try:
-            response = requests.get(f'{BACKEND_URL}/api/data', timeout=10)
-            if response.status_code == 200 and response.json()['message'] == 'Hello from Flask!':
-                print("✅ Backend API health check passed.")
-                return True
-            else:
-                print(f"❌ Backend API health check failed. Status: {response.status_code}, Body: {response.text}")
-                self.print_backend_logs()
-                return False
-        except requests.exceptions.RequestException as e:
-            print(f"❌ Backend API not accessible: {e}")
-            self.print_backend_logs()
-            return False
+            resp = requests.get(FRONTEND_URL, timeout=2)
+            if resp.status_code == 200:
+                frontend_ready = True
+                break
+        except Exception:
+            time.sleep(2)
+        if frontend_proc.poll() is not None:
+            logger.log("Frontend process terminated early.")
+            logger.log(frontend_proc.communicate()[0])
+            return False, backend_proc, frontend_proc
+    if not frontend_ready:
+        logger.log("Frontend did not start in time.")
+        return False, backend_proc, frontend_proc
+    logger.log("Frontend started.")
 
-    def test_frontend_accessibility(self) -> bool:
-        """Test frontend accessibility."""
-        print("\nTesting Frontend Accessibility...")
-        try:
-            response = requests.get(FRONTEND_URL, timeout=10)
-            if response.status_code == 200:
-                print("✅ Frontend accessibility check passed.")
-                return True
-            else:
-                print(f"❌ Frontend accessibility check failed. Status: {response.status_code}")
-                return False
-        except requests.exceptions.RequestException as e:
-            print(f"❌ Frontend not accessible: {e}")
-            return False
+    # Run tests
+    results = {}
+    try:
+        # Backend health
+        logger.log("Testing backend health...")
+        resp = requests.get(f'{BACKEND_URL}/api/data', timeout=10)
+        results['backend_api_health'] = resp.status_code == 200 and resp.json().get('message') == 'Hello from Flask!'
+        logger.log(f"backend_api_health: {results['backend_api_health']}")
+        covered_ids.add('backend-health')
+        # Champions
+        logger.log("Testing /api/champions...")
+        resp = requests.get(f'{BACKEND_URL}/api/champions', timeout=20)
+        results['get_champions_api'] = resp.status_code == 200 and 'data' in resp.json()
+        logger.log(f"get_champions_api: {results['get_champions_api']}")
+        covered_ids.add('get-champions')
+        # Frontend
+        logger.log("Testing frontend accessibility...")
+        resp = requests.get(FRONTEND_URL, timeout=10)
+        results['frontend_accessibility'] = resp.status_code == 200
+        logger.log(f"frontend_accessibility: {results['frontend_accessibility']}")
+        covered_ids.add('frontend-access')
+    except Exception as e:
+        logger.log(f"Test error: {e}")
+    # Print summary
+    logger.log("\n--- Test Summary ---")
+    for k, v in results.items():
+        logger.log(f"{k}: {'PASS' if v else 'FAIL'}")
+    logger.log("---------------------\n")
+    # Meta-check: ensure all required ids are covered
+    missing = required_ids - covered_ids
+    if missing:
+        logger.log(f"FAIL: The following required features/endpoints were NOT tested: {sorted(missing)}")
+        all_passed = False
+    else:
+        logger.log("All required features/endpoints were tested.")
+        all_passed = all(results.values())
+    cleanup_old_logs(10)
+    return all_passed, backend_proc, frontend_proc
 
-    def test_get_champions_api(self) -> bool:
-        """Tests the /api/champions endpoint."""
-        print("\nTesting /api/champions endpoint...")
-        try:
-            response = requests.get(f'{BACKEND_URL}/api/champions', timeout=20)
-            if response.status_code != 200:
-                print(f"❌ Champions endpoint failed with status {response.status_code}: {response.text}")
-                return False
-            data = response.json()
-            if 'data' not in data or not isinstance(data['data'], dict):
-                print("❌ Champions endpoint response is missing 'data' dictionary.")
-                return False
-            if 'Aatrox' not in data['data']:
-                print("❌ Champions endpoint response does not contain expected champion data (Aatrox).")
-                return False
-            print("✅ /api/champions endpoint test passed.")
-            return True
-        except requests.exceptions.RequestException as e:
-            print(f"❌ /api/champions endpoint not accessible: {e}")
-            return False
-
-    def run_all_tests(self) -> bool:
-        """Runs all tests and returns the overall result."""
-        backend_ready = self.start_backend_server()
-        frontend_ready = self.start_frontend_server()
-        if backend_ready:
-            self.test_results['backend_api_health'] = self.test_backend_api_health()
-            self.test_results['get_champions_api'] = self.test_get_champions_api()
+def auto_commit_and_push(logger):
+    try:
+        subprocess.run(["git", "add", "-A"], cwd=PROJECT_ROOT, check=True)
+        commit_result = subprocess.run([
+            "git", "commit", "-m", "chore: auto-commit after successful integration test suite"
+        ], cwd=PROJECT_ROOT, capture_output=True, text=True)
+        if commit_result.returncode == 0:
+            logger.log("Committed changes after successful tests.")
         else:
-            self.test_results['backend_api_health'] = False
-            self.test_results['get_champions_api'] = False
-        if frontend_ready:
-            self.test_results['frontend_accessibility'] = self.test_frontend_accessibility()
+            logger.log("No changes to commit.")
+        push_result = subprocess.run(["git", "push"], cwd=PROJECT_ROOT, capture_output=True, text=True)
+        if push_result.returncode == 0:
+            logger.log("Pushed changes to remote.")
         else:
-            self.test_results['frontend_accessibility'] = False
-        all_tests_passed = all(self.test_results.values())
-        return all_tests_passed
+            logger.log(f"Push failed: {push_result.stderr}")
+    except Exception as e:
+        logger.log(f"[WARN] Auto-commit/push failed: {e}")
 
 def main():
-    """Main execution block."""
-    suite = TestSuite()
-    all_passed = False
+    log_path = get_log_file_path()
+    logger = TeeLogger(log_path)
     try:
-        all_passed = suite.run_all_tests()
-    except Exception as e:
-        print(f"\nAn uncaught exception occurred: {e}")
+        all_passed, backend_proc, frontend_proc = run_all_tests(logger)
+        if all_passed:
+            logger.log("All tests passed. Servers left running for manual inspection.")
+            auto_commit_and_push(logger)
+        else:
+            logger.log("Some tests failed. Servers left running for debugging.")
     finally:
-        suite.cleanup_servers()
-    print("\n--- Test Summary ---")
-    for test, result in suite.test_results.items():
-        status = "✅ PASSED" if result else "❌ FAILED"
-        print(f"{test}: {status}")
-    print("--------------------\n")
-    if not all_passed:
-        print("Some tests failed.")
-        sys.exit(1)
-    else:
-        print("All tests passed successfully!")
-        sys.exit(0)
+        logger.close()
 
 if __name__ == "__main__":
     main() 

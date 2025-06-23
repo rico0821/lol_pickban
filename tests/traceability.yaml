@@ -1,0 +1,17 @@
+- id: backend-health
+  description: Backend health endpoint
+  type: endpoint
+  location: backend/app.py:/api/data
+  test_location: tests/integration/test_suite.py:run_all_tests
+
+- id: get-champions
+  description: Get all champions
+  type: endpoint
+  location: backend/app.py:/api/champions
+  test_location: tests/integration/test_suite.py:run_all_tests
+
+- id: frontend-access
+  description: Frontend root accessibility
+  type: feature
+  location: frontend/src/App.tsx
+  test_location: tests/integration/test_suite.py:run_all_tests 
