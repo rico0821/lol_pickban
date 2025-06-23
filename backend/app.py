@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 from backend.utils.lol_api import LoLDataDragonAPI
+import os
 
 app = Flask(__name__)
 lol_api = LoLDataDragonAPI()
@@ -17,4 +18,5 @@ def get_champions():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True) 
+    port = int(os.environ.get("LOL_PICKBAN_PORT", 5000))
+    app.run(debug=True, host='0.0.0.0', port=port) 
