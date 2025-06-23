@@ -9,9 +9,9 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).parent.parent.parent.resolve()
 sys.path.insert(0, str(PROJECT_ROOT))
 
-# Get ports from environment variables (default: backend 5000, frontend 3000)
-BACKEND_PORT = os.environ.get("LOL_PICKBAN_PORT", "5000")
-FRONTEND_PORT = os.environ.get("LOL_PICKBAN_FRONTEND_PORT", "3000")
+# Always use these ports for integration tests
+BACKEND_PORT = "5001"
+FRONTEND_PORT = "3001"
 BACKEND_URL = f"http://127.0.0.1:{BACKEND_PORT}"
 FRONTEND_URL = f"http://localhost:{FRONTEND_PORT}"
 
@@ -91,7 +91,17 @@ class TestSuite:
                     if stdout: print(f"--- STDOUT ---\n{stdout}")
                     if stderr: print(f"--- STDERR ---\n{stderr}")
                     return False
+            # If we get here, the server didn't start in time
             print(f"❌ Frontend server failed to start within {max_wait_time} seconds.")
+            # Print any output so far
+            if self.frontend_process.poll() is None:
+                self.frontend_process.terminate()
+                try:
+                    stdout, stderr = self.frontend_process.communicate(timeout=5)
+                    print(f"--- STDOUT ---\n{stdout}")
+                    print(f"--- STDERR ---\n{stderr}")
+                except Exception as e:
+                    print(f"Could not retrieve frontend logs: {e}")
             return False
         except Exception as e:
             print(f"❌ An error occurred while starting the frontend server: {e}")
