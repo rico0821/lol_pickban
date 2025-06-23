@@ -20,14 +20,12 @@ class TestSuite:
     def start_backend_server(self) -> bool:
         """Start the backend server for testing."""
         print("Starting Backend Server...")
-        backend_app_path = PROJECT_ROOT / "backend" / "app.py"
-        if not backend_app_path.exists():
-            print(f"Backend app not found at: {backend_app_path}")
-            return False
+        # We run as a module to ensure correct package resolution
+        backend_module = "backend.app"
             
         try:
             self.backend_process = subprocess.Popen(
-                [sys.executable, str(backend_app_path)],
+                [sys.executable, "-m", backend_module],
                 cwd=PROJECT_ROOT,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
@@ -147,6 +145,30 @@ class TestSuite:
             print(f"❌ Frontend not accessible: {e}")
             return False
 
+    def test_get_champions_api(self) -> bool:
+        """Tests the /api/champions endpoint."""
+        print("\nTesting /api/champions endpoint...")
+        try:
+            response = requests.get('http://localhost:5000/api/champions', timeout=20) # Increased timeout for external API call
+            if response.status_code != 200:
+                print(f"❌ Champions endpoint failed with status {response.status_code}: {response.text}")
+                return False
+            
+            data = response.json()
+            if 'data' not in data or not isinstance(data['data'], dict):
+                print("❌ Champions endpoint response is missing 'data' dictionary.")
+                return False
+            
+            if 'Aatrox' not in data['data']:
+                print("❌ Champions endpoint response does not contain expected champion data (Aatrox).")
+                return False
+
+            print("✅ /api/champions endpoint test passed.")
+            return True
+        except requests.exceptions.RequestException as e:
+            print(f"❌ /api/champions endpoint not accessible: {e}")
+            return False
+
     def run_all_tests(self) -> bool:
         """Runs all tests and returns the overall result."""
         # Start servers first
@@ -156,8 +178,10 @@ class TestSuite:
         # Run backend tests
         if backend_ready:
             self.test_results['backend_api_health'] = self.test_backend_api_health()
+            self.test_results['get_champions_api'] = self.test_get_champions_api()
         else:
             self.test_results['backend_api_health'] = False
+            self.test_results['get_champions_api'] = False
         
         # Run frontend tests
         if frontend_ready:
