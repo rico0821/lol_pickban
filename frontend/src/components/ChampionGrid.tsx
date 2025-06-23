@@ -1,10 +1,10 @@
 import React from 'react';
 
-const ChampionGrid = () => {
+const ChampionGrid: React.FC = () => {
   return (
-    <div>
+    <div data-testid="champion-grid">
       <h2>Champion Grid</h2>
-      {/* Champion portraits will go here */}
+      {/* Champion icons and names will go here */}
     </div>
   );
 };

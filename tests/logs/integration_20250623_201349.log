@@ -20,12 +20,3 @@ frontend_accessibility: PASS
 
 All required features/endpoints were tested.
 All tests passed. Servers left running for manual inspection.
-Committed changes after successful tests.
-Push failed: To https://github.com/rico0821/lol_pickban.git
- ! [rejected]        dev -> dev (non-fast-forward)
-error: failed to push some refs to 'https://github.com/rico0821/lol_pickban.git'
-hint: Updates were rejected because the tip of your current branch is behind
-hint: its remote counterpart. Integrate the remote changes (e.g.
-hint: 'git pull ...') before pushing again.
-hint: See the 'Note about fast-forwards' in 'git push --help' for details.
-

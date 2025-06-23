@@ -123,7 +123,7 @@ def run_all_tests(logger):
         # Champions
         logger.log("Testing /api/champions...")
         resp = requests.get(f'{BACKEND_URL}/api/champions', timeout=20)
-        results['get_champions_api'] = resp.status_code == 200 and 'data' in resp.json()
+        results['get_champions_api'] = resp.status_code == 200 and 'champions' in resp.json()
         logger.log(f"get_champions_api: {results['get_champions_api']}")
         covered_ids.add('get-champions')
         # Frontend

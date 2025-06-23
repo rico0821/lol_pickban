@@ -13,9 +13,13 @@ def get_data():
 def get_champions():
     try:
         champions_data = lol_api.get_champions()
-        return jsonify(champions_data)
+        return jsonify({
+            "success": True,
+            "champions": champions_data["champions"],
+            "count": champions_data["count"]
+        })
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"success": False, "error": str(e)}), 500
 
 if __name__ == '__main__':
     port = int(os.environ.get("LOL_PICKBAN_PORT", 5000))
