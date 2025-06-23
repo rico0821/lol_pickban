@@ -23,6 +23,10 @@ yarn-error.log*
 build/
 dist/
 
+# Test reports
+playwright-report/
+test-results/
+
 # IDE / Editor
 .vscode/
 .idea/

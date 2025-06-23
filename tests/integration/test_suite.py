@@ -14,7 +14,6 @@ class TestSuite:
     
     def __init__(self):
         self.backend_process = None
-        self.frontend_process = None
         self.test_results = {}
 
     def start_backend_server(self) -> bool:
@@ -50,56 +49,6 @@ class TestSuite:
             print(f"An error occurred while starting the backend server: {e}")
             return False
 
-    def start_frontend_server(self) -> bool:
-        """Start the frontend server for testing."""
-        print("\nStarting Frontend Server...")
-        frontend_dir = PROJECT_ROOT / "frontend"
-        if not frontend_dir.exists():
-            print(f"❌ Frontend directory not found: {frontend_dir}")
-            return False
-
-        try:
-            # Use shell=True for npm.cmd compatibility on Windows
-            is_windows = sys.platform == "win32"
-            self.frontend_process = subprocess.Popen(
-                ["npm.cmd" if is_windows else "npm", "start"],
-                cwd=frontend_dir,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True,
-                encoding='utf-8',
-                shell=is_windows
-            )
-            
-            # Poll the server to see if it's ready
-            print("...waiting for frontend server to be ready...")
-            max_wait_time = 60
-            start_time = time.time()
-            
-            while time.time() - start_time < max_wait_time:
-                try:
-                    response = requests.get("http://localhost:3000", timeout=2)
-                    if response.status_code == 200:
-                        print("Frontend server is up and running.")
-                        return True
-                except requests.ConnectionError:
-                    time.sleep(2) # Server not ready yet
-                
-                if self.frontend_process.poll() is not None:
-                    # Process terminated prematurely
-                    stdout, stderr = self.frontend_process.communicate()
-                    print("❌ Frontend server process terminated prematurely. Logs:")
-                    if stdout: print(f"--- STDOUT ---\n{stdout}")
-                    if stderr: print(f"--- STDERR ---\n{stderr}")
-                    return False
-
-            print(f"❌ Frontend server failed to start within {max_wait_time} seconds.")
-            return False
-                
-        except Exception as e:
-            print(f"❌ An error occurred while starting the frontend server: {e}")
-            return False
-
     def cleanup_servers(self):
         """Stop all running servers."""
         if self.backend_process:
@@ -107,12 +56,6 @@ class TestSuite:
             self.backend_process.terminate()
             self.backend_process.wait()
             print("Backend server stopped.")
-        
-        if self.frontend_process:
-            print("Stopping frontend server...")
-            self.frontend_process.terminate()
-            self.frontend_process.wait()
-            print("Frontend server stopped.")
     
     def test_backend_api_health(self) -> bool:
         """Test the backend's /api/data health endpoint."""
@@ -128,21 +71,6 @@ class TestSuite:
                 return False
         except requests.exceptions.RequestException as e:
             print(f"❌ Backend API not accessible: {e}")
-            return False
-
-    def test_frontend_accessibility(self) -> bool:
-        """Test frontend accessibility."""
-        print("\nTesting Frontend Accessibility...")
-        try:
-            response = requests.get('http://localhost:3000', timeout=10)
-            if response.status_code == 200:
-                print("✅ Frontend accessibility check passed.")
-                return True
-            else:
-                print(f"❌ Frontend accessibility check failed. Status: {response.status_code}")
-                return False
-        except requests.exceptions.RequestException as e:
-            print(f"❌ Frontend not accessible: {e}")
             return False
 
     def test_get_champions_api(self) -> bool:
@@ -169,11 +97,41 @@ class TestSuite:
             print(f"❌ /api/champions endpoint not accessible: {e}")
             return False
 
+    def run_playwright_tests(self) -> bool:
+        """Runs the Playwright E2E tests."""
+        print("\nRunning Playwright E2E tests...")
+        frontend_dir = PROJECT_ROOT / "frontend"
+        try:
+            is_windows = sys.platform == "win32"
+            process = subprocess.run(
+                ["npx.cmd" if is_windows else "npx", "playwright", "test"],
+                cwd=frontend_dir,
+                capture_output=True,
+                text=True,
+                encoding='utf-8',
+                timeout=120 # Give Playwright plenty of time to run
+            )
+
+            if process.returncode == 0:
+                print("✅ Playwright tests passed.")
+                print(process.stdout)
+                return True
+            else:
+                print("❌ Playwright tests failed.")
+                print(process.stdout)
+                print(process.stderr)
+                return False
+        except subprocess.TimeoutExpired:
+            print("❌ Playwright tests timed out.")
+            return False
+        except Exception as e:
+            print(f"❌ An error occurred while running Playwright tests: {e}")
+            return False
+
     def run_all_tests(self) -> bool:
         """Runs all tests and returns the overall result."""
-        # Start servers first
+        # Start backend server
         backend_ready = self.start_backend_server()
-        frontend_ready = self.start_frontend_server()
 
         # Run backend tests
         if backend_ready:
@@ -183,11 +141,12 @@ class TestSuite:
             self.test_results['backend_api_health'] = False
             self.test_results['get_champions_api'] = False
         
-        # Run frontend tests
-        if frontend_ready:
-            self.test_results['frontend_accessibility'] = self.test_frontend_accessibility()
+        # Run Playwright E2E tests. It will manage its own frontend server
+        # but requires the backend to be running.
+        if backend_ready:
+            self.test_results['playwright_e2e_tests'] = self.run_playwright_tests()
         else:
-            self.test_results['frontend_accessibility'] = False
+            self.test_results['playwright_e2e_tests'] = False
 
         # Check results
         all_tests_passed = all(self.test_results.values())
