@@ -54,6 +54,26 @@ class TeeLogger:
         self.log_file.close()
 
 def run_all_tests(logger):
+    # Check if backend/app.py can be run directly (import/module errors)
+    logger.log("Testing direct script execution: python backend/app.py ...")
+    direct_proc = subprocess.Popen([
+        sys.executable, "backend/app.py"
+    ], cwd=PROJECT_ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding='utf-8')
+    try:
+        outs, _ = direct_proc.communicate(timeout=5)
+        # If process exited, check for import errors
+        if ("ModuleNotFoundError" in outs) or ("ImportError" in outs):
+            logger.log("FAIL: backend/app.py cannot be run directly due to import/module error:")
+            logger.log(outs)
+            return False, None, None
+        logger.log("Direct script execution exited early (unexpected). Output:")
+        logger.log(outs)
+        return False, None, None
+    except subprocess.TimeoutExpired:
+        # Process is still running (server started), kill it and pass
+        direct_proc.kill()
+        logger.log("Direct script execution passed (server started).")
+
     # Load traceability matrix
     with open(TRACEABILITY_PATH, 'r', encoding='utf-8') as f:
         traceability = yaml.safe_load(f)

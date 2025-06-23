@@ -1,3 +1,5 @@
+Testing direct script execution: python backend/app.py ...
+Direct script execution passed (server started).
 Ensuring ports 5001 and 3001 are free...
 Ports are now free.
 Starting backend on port 5001...
@@ -18,4 +20,4 @@ get_champions_api: PASS
 frontend_accessibility: PASS
 ---------------------
 
-All tests passed. Servers left running for manual inspection.
+All required features/endpoints were tested.

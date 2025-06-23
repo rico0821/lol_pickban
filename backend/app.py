@@ -1,6 +1,11 @@
-from flask import Flask, jsonify
-from backend.utils.lol_api import LoLDataDragonAPI
 import os
+import sys
+if __name__ == "__main__":
+    sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
+    from utils.lol_api import LoLDataDragonAPI
+else:
+    from backend.utils.lol_api import LoLDataDragonAPI
+from flask import Flask, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
