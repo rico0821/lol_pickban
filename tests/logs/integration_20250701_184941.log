@@ -1,0 +1,88 @@
+Testing direct script execution: python backend/app.py ...
+Direct script execution passed (server started).
+Ensuring ports 3001 and 5001 are free...
+[DIAG] Checking for any process using port 3001 before kill attempt...
+[DIAG] Waiting 2 seconds for port 3001 to be released...
+[PORT] Port 3001 is now free.
+[DIAG] Checking for any process using port 5001 before kill attempt...
+[DIAG] Waiting 2 seconds for port 5001 to be released...
+[WARN] Port 5001 is still not free after kill/wait. Continuing anyway.
+Ports 3001 and 5001 are now free.
+[DIAG] Checking for any process using port 3001 before starting Vite...
+[DIAG] No process is using port 3001 before Vite startup.
+[DIAG] Sleeping 2 seconds to allow OS to fully release port 3001...
+[DEBUG] PATH for frontend process: C:\Program Files\PowerShell\7;c:\Users\Ricky Won\AppData\Local\Programs\cursor\resources\app\bin;C:\Program Files (x86)\Google\Chrome\Application;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;E:\anaconda;E:\anaconda\Library;E:\anaconda\Scripts;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\nodjs\;C:\ProgramData\chocolatey\bin;C:\Users\Ricky Won\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Python312\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Launcher\;C:\Users\Ricky Won\AppData\Local\Microsoft\Wi;C:\Program Files\GitHub CLI\;C:\Program Files\PowerShell\7\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Python312\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Launcher\;C:\Users\Ricky Won\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\PyCharm Community Edition 2019.3.1\bin;C:\Users\Ricky Won\AppData\Local\GitHubDesktop\bin;C:\Users\Ricky Won\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\PyCharm Community Edition 2023.3\bin;;C:\Program Files (x86)\SoftForum\XecureHSM\;C:\Program Files\nodejs;C:\Users\Ricky Won\AppData\Romaing\npm;C:\Users\Ricky Won\AppData\Roaming\npm;C:\Users\Ricky Won\AppData\Local\Programs\cursor\resources\app\bin;c:\Users\Ricky Won\.cursor\extensions\ms-python.debugpy-2025.6.0-win32-x64\bundled\scripts\noConfigScripts
+[DEBUG] npm --version output: 10.9.2
+[DEBUG] node --version output: v22.16.0
+[DEBUG] Current working directory: C:\Users\Ricky Won\Documents\Cursor\lol_pickban
+[DEBUG] frontend/package.json contents:
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.4.1",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.25.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "jsdom": "^26.1.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.10",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.30.1",
+    "vite": "^6.3.5",
+    "vitest": "^3.2.4"
+  }
+}
+
+Starting backend on port 5001...
+Backend started and is healthy.
+[TIMER] Starting frontend process at 1751363397.27
+[DEBUG] Frontend start command: ['cmd', '/c', 'npm.cmd', 'run', 'dev', '--', '--port', '3001']
+[DEBUG] Frontend env PORT: 3001
+[DEBUG] Frontend env PATH: C:\Program Files\PowerShell\7;c:\Users\Ricky Won\AppData\Local\Programs\cursor\resources\app\bin;C:\Program Files (x86)\Google\Chrome\Application;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;E:\anaconda;E:\anaconda\Library;E:\anaconda\Scripts;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\nodjs\;C:\ProgramData\chocolatey\bin;C:\Users\Ricky Won\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Python312\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Launcher\;C:\Users\Ricky Won\AppData\Local\Microsoft\Wi;C:\Program Files\GitHub CLI\;C:\Program Files\PowerShell\7\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Python312\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Launcher\;C:\Users\Ricky Won\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\PyCharm Community Edition 2019.3.1\bin;C:\Users\Ricky Won\AppData\Local\GitHubDesktop\bin;C:\Users\Ricky Won\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\PyCharm Community Edition 2023.3\bin;;C:\Program Files (x86)\SoftForum\XecureHSM\;C:\Program Files\nodejs;C:\Users\Ricky Won\AppData\Romaing\npm;C:\Users\Ricky Won\AppData\Roaming\npm;C:\Users\Ricky Won\AppData\Local\Programs\cursor\resources\app\bin;c:\Users\Ricky Won\.cursor\extensions\ms-python.debugpy-2025.6.0-win32-x64\bundled\scripts\noConfigScripts
+Waiting for frontend to be ready...
+[frontend-log] 
+[frontend-log] > frontend@0.0.0 dev
+[frontend-log] > vite --port 3001
+[frontend-log] 
+[frontend-log] 
+[frontend-log]   [32m[1mVITE[22m v6.3.5[39m  [2mready in [0m[1m291[22m[2m[0m ms[22m
+[frontend-log] 
+[frontend-log]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m3001[22m/[39m
+[frontend-log] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[frontend-log] [2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+Frontend did not start in time.
+ABORTING: Frontend did not start. Exiting integration suite.
+--- Frontend dev server startup log (last 50 lines) ---
+
+> frontend@0.0.0 dev
+> vite --port 3001
+
+
+  [32m[1mVITE[22m v6.3.5[39m  [2mready in [0m[1m291[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m3001[22m/[39m
+[2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+--- End Frontend dev server startup log ---
+[LOG COMPLETE]

@@ -1,0 +1,216 @@
+Testing direct script execution: python backend/app.py ...
+Direct script execution passed (server started).
+Ensuring ports 3001 and 5001 are free...
+[DIAG] Checking for any process using port 3001 before kill attempt...
+[DIAG] Waiting 2 seconds for port 3001 to be released...
+[PORT] Port 3001 is now free.
+[DIAG] Checking for any process using port 5001 before kill attempt...
+[DIAG] Waiting 2 seconds for port 5001 to be released...
+[WARN] Port 5001 is still not free after kill/wait. Continuing anyway.
+Ports 3001 and 5001 are now free.
+[DIAG] Checking for any process using port 3001 before starting Vite...
+[DIAG] No process is using port 3001 before Vite startup.
+[DIAG] Sleeping 2 seconds to allow OS to fully release port 3001...
+[DEBUG] PATH for frontend process: C:\Program Files\PowerShell\7;c:\Users\Ricky Won\AppData\Local\Programs\cursor\resources\app\bin;C:\Program Files (x86)\Google\Chrome\Application;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;E:\anaconda;E:\anaconda\Library;E:\anaconda\Scripts;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\nodjs\;C:\ProgramData\chocolatey\bin;C:\Users\Ricky Won\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Python312\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Launcher\;C:\Users\Ricky Won\AppData\Local\Microsoft\Wi;C:\Program Files\GitHub CLI\;C:\Program Files\PowerShell\7\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Python312\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Launcher\;C:\Users\Ricky Won\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\PyCharm Community Edition 2019.3.1\bin;C:\Users\Ricky Won\AppData\Local\GitHubDesktop\bin;C:\Users\Ricky Won\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\PyCharm Community Edition 2023.3\bin;;C:\Program Files (x86)\SoftForum\XecureHSM\;C:\Program Files\nodejs;C:\Users\Ricky Won\AppData\Romaing\npm;C:\Users\Ricky Won\AppData\Roaming\npm;C:\Users\Ricky Won\AppData\Local\Programs\cursor\resources\app\bin;c:\Users\Ricky Won\.cursor\extensions\ms-python.debugpy-2025.6.0-win32-x64\bundled\scripts\noConfigScripts
+[DEBUG] npm --version output: 10.9.2
+[DEBUG] node --version output: v22.16.0
+[DEBUG] Current working directory: C:\Users\Ricky Won\Documents\Cursor\lol_pickban
+[DEBUG] frontend/package.json contents:
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.4.1",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.25.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "jsdom": "^26.1.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.10",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.30.1",
+    "vite": "^6.3.5",
+    "vitest": "^3.2.4"
+  }
+}
+
+Starting backend on port 5001...
+Backend started and is healthy.
+[TIMER] Starting frontend process at 1751364048.47
+[DEBUG] Frontend start command: ['cmd', '/c', 'npm.cmd', 'run', 'dev', '--', '--port', '3001']
+[DEBUG] Frontend env PORT: 3001
+[DEBUG] Frontend env PATH: C:\Program Files\PowerShell\7;c:\Users\Ricky Won\AppData\Local\Programs\cursor\resources\app\bin;C:\Program Files (x86)\Google\Chrome\Application;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;E:\anaconda;E:\anaconda\Library;E:\anaconda\Scripts;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\nodjs\;C:\ProgramData\chocolatey\bin;C:\Users\Ricky Won\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Python312\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Launcher\;C:\Users\Ricky Won\AppData\Local\Microsoft\Wi;C:\Program Files\GitHub CLI\;C:\Program Files\PowerShell\7\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Python312\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Launcher\;C:\Users\Ricky Won\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\PyCharm Community Edition 2019.3.1\bin;C:\Users\Ricky Won\AppData\Local\GitHubDesktop\bin;C:\Users\Ricky Won\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\PyCharm Community Edition 2023.3\bin;;C:\Program Files (x86)\SoftForum\XecureHSM\;C:\Program Files\nodejs;C:\Users\Ricky Won\AppData\Romaing\npm;C:\Users\Ricky Won\AppData\Roaming\npm;C:\Users\Ricky Won\AppData\Local\Programs\cursor\resources\app\bin;c:\Users\Ricky Won\.cursor\extensions\ms-python.debugpy-2025.6.0-win32-x64\bundled\scripts\noConfigScripts
+Waiting for frontend to be ready...
+[frontend-health-check] Attempt 1: HTTP 200
+Frontend health check passed: HTTP 200 OK.
+Frontend started.
+[backend-log] [backend] FORCED: Flask app will always run on port 5001 (cwd=C:\Users\Ricky Won\Documents\Cursor\lol_pickban)
+[backend-log]  * Serving Flask app 'app'
+[backend-log]  * Debug mode: on
+[backend-log] WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+[backend-log]  * Running on all addresses (0.0.0.0)
+[backend-log]  * Running on http://127.0.0.1:5001
+[backend-log]  * Running on http://183.98.19.216:5001
+[backend-log] Press CTRL+C to quit
+[backend-log]  * Restarting with watchdog (windowsapi)
+[backend-log]  * Debugger is active!
+[backend-log]  * Debugger PIN: 407-063-650
+Testing backend health...
+backend_api_health: True
+Testing /api/champions...
+/api/champions raw response: {'champions': [{'champion_id': 'Aatrox', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Aatrox.png', 'name': 'Aatrox'}, {'champion_id': 'Ahri', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Ahri.png', 'name': 'Ahri'}, {'champion_id': 'Akali', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Akali.png', 'name': 'Akali'}, {'champion_id': 'Akshan', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Akshan.png', 'name': 'Akshan'}, {'champion_id': 'Alistar', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Alistar.png', 'name': 'Alistar'}, {'champion_id': 'Ambessa', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Ambessa.png', 'name': 'Ambessa'}, {'champion_id': 'Amumu', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Amumu.png', 'name': 'Amumu'}, {'champion_id': 'Anivia', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Anivia.png', 'name': 'Anivia'}, {'champion_id': 'Annie', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Annie.png', 'name': 'Annie'}, {'champion_id': 'Aphelios', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Aphelios.png', 'name': 'Aphelios'}, {'champion_id': 'Ashe', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Ashe.png', 'name': 'Ashe'}, {'champion_id': 'AurelionSol', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/AurelionSol.png', 'name': 'Aurelion Sol'}, {'champion_id': 'Aurora', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Aurora.png', 'name': 'Aurora'}, {'champion_id': 'Azir', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Azir.png', 'name': 'Azir'}, {'champion_id': 'Bard', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Bard.png', 'name': 'Bard'}, {'champion_id': 'Belveth', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Belveth.png', 'name': "Bel'Veth"}, {'champion_id': 'Blitzcrank', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Blitzcrank.png', 'name': 'Blitzcrank'}, {'champion_id': 'Brand', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Brand.png', 'name': 'Brand'}, {'champion_id': 'Braum', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Braum.png', 'name': 'Braum'}, {'champion_id': 'Briar', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Briar.png', 'name': 'Briar'}, {'champion_id': 'Caitlyn', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Caitlyn.png', 'name': 'Caitlyn'}, {'champion_id': 'Camille', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Camille.png', 'name': 'Camille'}, {'champion_id': 'Cassiopeia', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Cassiopeia.png', 'name': 'Cassiopeia'}, {'champion_id': 'Chogath', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Chogath.png', 'name': "Cho'Gath"}, {'champion_id': 'Corki', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Corki.png', 'name': 'Corki'}, {'champion_id': 'Darius', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Darius.png', 'name': 'Darius'}, {'champion_id': 'Diana', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Diana.png', 'name': 'Diana'}, {'champion_id': 'Draven', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Draven.png', 'name': 'Draven'}, {'champion_id': 'DrMundo', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/DrMundo.png', 'name': 'Dr. Mundo'}, {'champion_id': 'Ekko', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Ekko.png', 'name': 'Ekko'}, {'champion_id': 'Elise', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Elise.png', 'name': 'Elise'}, {'champion_id': 'Evelynn', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Evelynn.png', 'name': 'Evelynn'}, {'champion_id': 'Ezreal', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Ezreal.png', 'name': 'Ezreal'}, {'champion_id': 'Fiddlesticks', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Fiddlesticks.png', 'name': 'Fiddlesticks'}, {'champion_id': 'Fiora', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Fiora.png', 'name': 'Fiora'}, {'champion_id': 'Fizz', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Fizz.png', 'name': 'Fizz'}, {'champion_id': 'Galio', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Galio.png', 'name': 'Galio'}, {'champion_id': 'Gangplank', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Gangplank.png', 'name': 'Gangplank'}, {'champion_id': 'Garen', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Garen.png', 'name': 'Garen'}, {'champion_id': 'Gnar', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Gnar.png', 'name': 'Gnar'}, {'champion_id': 'Gragas', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Gragas.png', 'name': 'Gragas'}, {'champion_id': 'Graves', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Graves.png', 'name': 'Graves'}, {'champion_id': 'Gwen', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Gwen.png', 'name': 'Gwen'}, {'champion_id': 'Hecarim', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Hecarim.png', 'name': 'Hecarim'}, {'champion_id': 'Heimerdinger', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Heimerdinger.png', 'name': 'Heimerdinger'}, {'champion_id': 'Hwei', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Hwei.png', 'name': 'Hwei'}, {'champion_id': 'Illaoi', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Illaoi.png', 'name': 'Illaoi'}, {'champion_id': 'Irelia', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Irelia.png', 'name': 'Irelia'}, {'champion_id': 'Ivern', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Ivern.png', 'name': 'Ivern'}, {'champion_id': 'Janna', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Janna.png', 'name': 'Janna'}, {'champion_id': 'JarvanIV', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/JarvanIV.png', 'name': 'Jarvan IV'}, {'champion_id': 'Jax', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Jax.png', 'name': 'Jax'}, {'champion_id': 'Jayce', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Jayce.png', 'name': 'Jayce'}, {'champion_id': 'Jhin', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Jhin.png', 'name': 'Jhin'}, {'champion_id': 'Jinx', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Jinx.png', 'name': 'Jinx'}, {'champion_id': 'Kaisa', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Kaisa.png', 'name': "Kai'Sa"}, {'champion_id': 'Kalista', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Kalista.png', 'name': 'Kalista'}, {'champion_id': 'Karma', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Karma.png', 'name': 'Karma'}, {'champion_id': 'Karthus', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Karthus.png', 'name': 'Karthus'}, {'champion_id': 'Kassadin', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Kassadin.png', 'name': 'Kassadin'}, {'champion_id': 'Katarina', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Katarina.png', 'name': 'Katarina'}, {'champion_id': 'Kayle', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Kayle.png', 'name': 'Kayle'}, {'champion_id': 'Kayn', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Kayn.png', 'name': 'Kayn'}, {'champion_id': 'Kennen', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Kennen.png', 'name': 'Kennen'}, {'champion_id': 'Khazix', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Khazix.png', 'name': "Kha'Zix"}, {'champion_id': 'Kindred', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Kindred.png', 'name': 'Kindred'}, {'champion_id': 'Kled', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Kled.png', 'name': 'Kled'}, {'champion_id': 'KogMaw', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/KogMaw.png', 'name': "Kog'Maw"}, {'champion_id': 'KSante', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/KSante.png', 'name': "K'Sante"}, {'champion_id': 'Leblanc', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Leblanc.png', 'name': 'LeBlanc'}, {'champion_id': 'LeeSin', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/LeeSin.png', 'name': 'Lee Sin'}, {'champion_id': 'Leona', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Leona.png', 'name': 'Leona'}, {'champion_id': 'Lillia', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Lillia.png', 'name': 'Lillia'}, {'champion_id': 'Lissandra', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Lissandra.png', 'name': 'Lissandra'}, {'champion_id': 'Lucian', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Lucian.png', 'name': 'Lucian'}, {'champion_id': 'Lulu', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Lulu.png', 'name': 'Lulu'}, {'champion_id': 'Lux', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Lux.png', 'name': 'Lux'}, {'champion_id': 'Malphite', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Malphite.png', 'name': 'Malphite'}, {'champion_id': 'Malzahar', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Malzahar.png', 'name': 'Malzahar'}, {'champion_id': 'Maokai', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Maokai.png', 'name': 'Maokai'}, {'champion_id': 'MasterYi', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/MasterYi.png', 'name': 'Master Yi'}, {'champion_id': 'Mel', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Mel.png', 'name': 'Mel'}, {'champion_id': 'Milio', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Milio.png', 'name': 'Milio'}, {'champion_id': 'MissFortune', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/MissFortune.png', 'name': 'Miss Fortune'}, {'champion_id': 'MonkeyKing', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/MonkeyKing.png', 'name': 'Wukong'}, {'champion_id': 'Mordekaiser', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Mordekaiser.png', 'name': 'Mordekaiser'}, {'champion_id': 'Morgana', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Morgana.png', 'name': 'Morgana'}, {'champion_id': 'Naafiri', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Naafiri.png', 'name': 'Naafiri'}, {'champion_id': 'Nami', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Nami.png', 'name': 'Nami'}, {'champion_id': 'Nasus', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Nasus.png', 'name': 'Nasus'}, {'champion_id': 'Nautilus', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Nautilus.png', 'name': 'Nautilus'}, {'champion_id': 'Neeko', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Neeko.png', 'name': 'Neeko'}, {'champion_id': 'Nidalee', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Nidalee.png', 'name': 'Nidalee'}, {'champion_id': 'Nilah', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Nilah.png', 'name': 'Nilah'}, {'champion_id': 'Nocturne', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Nocturne.png', 'name': 'Nocturne'}, {'champion_id': 'Nunu', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Nunu.png', 'name': 'Nunu & Willump'}, {'champion_id': 'Olaf', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Olaf.png', 'name': 'Olaf'}, {'champion_id': 'Orianna', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Orianna.png', 'name': 'Orianna'}, {'champion_id': 'Ornn', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Ornn.png', 'name': 'Ornn'}, {'champion_id': 'Pantheon', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Pantheon.png', 'name': 'Pantheon'}, {'champion_id': 'Poppy', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Poppy.png', 'name': 'Poppy'}, {'champion_id': 'Pyke', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Pyke.png', 'name': 'Pyke'}, {'champion_id': 'Qiyana', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Qiyana.png', 'name': 'Qiyana'}, {'champion_id': 'Quinn', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Quinn.png', 'name': 'Quinn'}, {'champion_id': 'Rakan', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Rakan.png', 'name': 'Rakan'}, {'champion_id': 'Rammus', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Rammus.png', 'name': 'Rammus'}, {'champion_id': 'RekSai', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/RekSai.png', 'name': "Rek'Sai"}, {'champion_id': 'Rell', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Rell.png', 'name': 'Rell'}, {'champion_id': 'Renata', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Renata.png', 'name': 'Renata Glasc'}, {'champion_id': 'Renekton', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Renekton.png', 'name': 'Renekton'}, {'champion_id': 'Rengar', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Rengar.png', 'name': 'Rengar'}, {'champion_id': 'Riven', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Riven.png', 'name': 'Riven'}, {'champion_id': 'Rumble', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Rumble.png', 'name': 'Rumble'}, {'champion_id': 'Ryze', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Ryze.png', 'name': 'Ryze'}, {'champion_id': 'Samira', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Samira.png', 'name': 'Samira'}, {'champion_id': 'Sejuani', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Sejuani.png', 'name': 'Sejuani'}, {'champion_id': 'Senna', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Senna.png', 'name': 'Senna'}, {'champion_id': 'Seraphine', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Seraphine.png', 'name': 'Seraphine'}, {'champion_id': 'Sett', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Sett.png', 'name': 'Sett'}, {'champion_id': 'Shaco', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Shaco.png', 'name': 'Shaco'}, {'champion_id': 'Shen', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Shen.png', 'name': 'Shen'}, {'champion_id': 'Shyvana', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Shyvana.png', 'name': 'Shyvana'}, {'champion_id': 'Singed', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Singed.png', 'name': 'Singed'}, {'champion_id': 'Sion', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Sion.png', 'name': 'Sion'}, {'champion_id': 'Sivir', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Sivir.png', 'name': 'Sivir'}, {'champion_id': 'Skarner', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Skarner.png', 'name': 'Skarner'}, {'champion_id': 'Smolder', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Smolder.png', 'name': 'Smolder'}, {'champion_id': 'Sona', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Sona.png', 'name': 'Sona'}, {'champion_id': 'Soraka', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Soraka.png', 'name': 'Soraka'}, {'champion_id': 'Swain', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Swain.png', 'name': 'Swain'}, {'champion_id': 'Sylas', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Sylas.png', 'name': 'Sylas'}, {'champion_id': 'Syndra', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Syndra.png', 'name': 'Syndra'}, {'champion_id': 'TahmKench', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/TahmKench.png', 'name': 'Tahm Kench'}, {'champion_id': 'Taliyah', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Taliyah.png', 'name': 'Taliyah'}, {'champion_id': 'Talon', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Talon.png', 'name': 'Talon'}, {'champion_id': 'Taric', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Taric.png', 'name': 'Taric'}, {'champion_id': 'Teemo', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Teemo.png', 'name': 'Teemo'}, {'champion_id': 'Thresh', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Thresh.png', 'name': 'Thresh'}, {'champion_id': 'Tristana', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Tristana.png', 'name': 'Tristana'}, {'champion_id': 'Trundle', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Trundle.png', 'name': 'Trundle'}, {'champion_id': 'Tryndamere', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Tryndamere.png', 'name': 'Tryndamere'}, {'champion_id': 'TwistedFate', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/TwistedFate.png', 'name': 'Twisted Fate'}, {'champion_id': 'Twitch', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Twitch.png', 'name': 'Twitch'}, {'champion_id': 'Udyr', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Udyr.png', 'name': 'Udyr'}, {'champion_id': 'Urgot', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Urgot.png', 'name': 'Urgot'}, {'champion_id': 'Varus', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Varus.png', 'name': 'Varus'}, {'champion_id': 'Vayne', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Vayne.png', 'name': 'Vayne'}, {'champion_id': 'Veigar', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Veigar.png', 'name': 'Veigar'}, {'champion_id': 'Velkoz', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Velkoz.png', 'name': "Vel'Koz"}, {'champion_id': 'Vex', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Vex.png', 'name': 'Vex'}, {'champion_id': 'Vi', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Vi.png', 'name': 'Vi'}, {'champion_id': 'Viego', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Viego.png', 'name': 'Viego'}, {'champion_id': 'Viktor', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Viktor.png', 'name': 'Viktor'}, {'champion_id': 'Vladimir', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Vladimir.png', 'name': 'Vladimir'}, {'champion_id': 'Volibear', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Volibear.png', 'name': 'Volibear'}, {'champion_id': 'Warwick', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Warwick.png', 'name': 'Warwick'}, {'champion_id': 'Xayah', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Xayah.png', 'name': 'Xayah'}, {'champion_id': 'Xerath', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Xerath.png', 'name': 'Xerath'}, {'champion_id': 'XinZhao', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/XinZhao.png', 'name': 'Xin Zhao'}, {'champion_id': 'Yasuo', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Yasuo.png', 'name': 'Yasuo'}, {'champion_id': 'Yone', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Yone.png', 'name': 'Yone'}, {'champion_id': 'Yorick', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Yorick.png', 'name': 'Yorick'}, {'champion_id': 'Yuumi', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Yuumi.png', 'name': 'Yuumi'}, {'champion_id': 'Zac', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Zac.png', 'name': 'Zac'}, {'champion_id': 'Zed', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Zed.png', 'name': 'Zed'}, {'champion_id': 'Zeri', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Zeri.png', 'name': 'Zeri'}, {'champion_id': 'Ziggs', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Ziggs.png', 'name': 'Ziggs'}, {'champion_id': 'Zilean', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Zilean.png', 'name': 'Zilean'}, {'champion_id': 'Zoe', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Zoe.png', 'name': 'Zoe'}, {'champion_id': 'Zyra', 'icon_url': 'https://ddragon.leagueoflegends.com/cdn/15.13.1/img/champion/Zyra.png', 'name': 'Zyra'}], 'count': 170, 'success': True}
+get_champions_api: True
+Testing frontend accessibility...
+frontend_accessibility: True
+Checking frontend DOM for champion names...
+FAIL: No champion names found in frontend DOM.
+--- Full Frontend HTML ---
+<!doctype html>
+<html lang="en">
+  <head>
+    <script type="module">import { injectIntoGlobalHook } from "/@react-refresh";
+injectIntoGlobalHook(window);
+window.$RefreshReg$ = () => {};
+window.$RefreshSig$ = () => (type) => type;</script>
+
+    <script type="module" src="/@vite/client"></script>
+
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React + TS</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
+--- End Full Frontend HTML ---
+--- script block ---
+import { injectIntoGlobalHook } from "/@react-refresh";
+injectIntoGlobalHook(window);
+window.$RefreshReg$ = () => {};
+window.$RefreshSig$ = () => (type) => type;
+--- End script block ---
+--- script block ---
+
+--- End script block ---
+--- script block ---
+
+--- End script block ---
+--- Frontend process output after startup ---
+
+> frontend@0.0.0 dev
+> vite --port 3001
+
+
+  [32m[1mVITE[22m v6.3.5[39m  [2mready in [0m[1m383[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m3001[22m/[39m
+[2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+--- End Frontend process output ---
+frontend_champion_render: False
+Running Playwright E2E test for champion grid...
+============================= test session starts =============================
+platform win32 -- Python 3.8.18, pytest-7.4.4, pluggy-1.0.0 -- E:\anaconda\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Ricky Won\Documents\Cursor\lol_pickban
+plugins: anyio-3.5.0, base-url-2.1.0, flask-1.3.0, playwright-0.5.2
+collecting ... collected 1 item
+
+tests/integration/test_playwright_e2e.py::test_champion_grid_renders[chromium] FAILED [100%]
+
+================================== FAILURES ===================================
+____________________ test_champion_grid_renders[chromium] _____________________
+
+page = <Page url='http://localhost:3001/'>
+
+    @pytest.mark.playwright
+    def test_champion_grid_renders(page: Page):
+        """E2E: Ensure the champion grid renders at least one champion name."""
+        page.goto(FRONTEND_URL, wait_until="networkidle")
+        # Wait for the champion grid to appear
+        grid = page.locator('[data-testid="champion-grid"]')
+>       grid.wait_for(state="visible", timeout=10000)
+
+tests\integration\test_playwright_e2e.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+E:\anaconda\lib\site-packages\playwright\sync_api\_generated.py:17736: in wait_for
+    self._sync(self._impl_obj.wait_for(timeout=timeout, state=state))
+E:\anaconda\lib\site-packages\playwright\_impl\_locator.py:670: in wait_for
+    await self._frame.wait_for_selector(
+E:\anaconda\lib\site-packages\playwright\_impl\_frame.py:323: in wait_for_selector
+    await self._channel.send("waitForSelector", locals_to_params(locals()))
+E:\anaconda\lib\site-packages\playwright\_impl\_connection.py:59: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <playwright._impl._connection.Connection object at 0x0000020D5B9F36D0>
+cb = <function Channel.send.<locals>.<lambda> at 0x0000020D5B9539D0>
+is_internal = False
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(task, "__pw_stack__", inspect.stack())
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Locator.wait_for: Timeout 10000ms exceeded.
+E           Call log:
+E           waiting for locator("[data-testid=\"champion-grid\"]") to be visible
+
+E:\anaconda\lib\site-packages\playwright\_impl\_connection.py:520: TimeoutError
+=========================== short test summary info ===========================
+FAILED tests/integration/test_playwright_e2e.py::test_champion_grid_renders[chromium]
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!
+======================== 1 failed, 1 warning in 18.86s ========================
+
+FAIL: Playwright E2E test FAILED.
+
+frontend_champion_grid_e2e: False
+Running frontend component tests (Vitest)...
+Exception during frontend component tests: [WinError 2] 지정된 파일을 찾을 수 없습니다
+Test error: [WinError 2] 지정된 파일을 찾을 수 없습니다
+
+--- Test Summary ---
+backend_api_health: PASS
+get_champions_api: PASS
+frontend_accessibility: PASS
+frontend_champion_render: FAIL
+frontend_champion_grid_e2e: FAIL
+frontend_component_tests: FAIL
+---------------------
+
+FAIL: The following required features/endpoints were NOT tested: ['frontend-champion-grid-e2e']
+[TIMER] Frontend process startup took 32.16s
+Some tests failed. Servers left running for debugging.
+[LOG COMPLETE]

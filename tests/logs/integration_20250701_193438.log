@@ -1,0 +1,58 @@
+Ensuring ports 3001 and 5001 are free...
+[DIAG] Checking for any process using port 3001 before kill attempt...
+[DIAG] Waiting 3 seconds for port 3001 to be released...
+[DIAG] Checking for any process using port 5001 before kill attempt...
+[DIAG] Waiting 3 seconds for port 5001 to be released...
+Ports 3001 and 5001 are now free.
+[DEBUG] Current working directory: C:\Users\Ricky Won\Documents\Cursor\lol_pickban
+[DEBUG] frontend/package.json contents:
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.4.1",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.25.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "jsdom": "^26.1.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.10",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.30.1",
+    "vite": "^6.3.5",
+    "vitest": "^3.2.4"
+  }
+}
+
+Starting backend on port 5001...
+Backend started and is healthy.
+[TIMER] Starting frontend process at 1751366089.77
+[DEBUG] Frontend start command: ['cmd', '/c', 'npm.cmd', 'run', 'dev', '--', '--port', '3001']
+[DEBUG] Frontend env PORT: 3001
+[DEBUG] Frontend env PATH: C:\Program Files\PowerShell\7;c:\Users\Ricky Won\AppData\Local\Programs\cursor\resources\app\bin;C:\Program Files (x86)\Google\Chrome\Application;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;E:\anaconda;E:\anaconda\Library;E:\anaconda\Scripts;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\nodjs\;C:\ProgramData\chocolatey\bin;C:\Users\Ricky Won\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Python312\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Launcher\;C:\Users\Ricky Won\AppData\Local\Microsoft\Wi;C:\Program Files\GitHub CLI\;C:\Program Files\PowerShell\7\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Python312\;C:\Users\Ricky Won\AppData\Local\Programs\Python\Launcher\;C:\Users\Ricky Won\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\PyCharm Community Edition 2019.3.1\bin;C:\Users\Ricky Won\AppData\Local\GitHubDesktop\bin;C:\Users\Ricky Won\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\PyCharm Community Edition 2023.3\bin;;C:\Program Files (x86)\SoftForum\XecureHSM\;C:\Program Files\nodejs;C:\Users\Ricky Won\AppData\Romaing\npm;C:\Users\Ricky Won\AppData\Roaming\npm;C:\Users\Ricky Won\AppData\Local\Programs\cursor\resources\app\bin;c:\Users\Ricky Won\.cursor\extensions\ms-python.debugpy-2025.6.0-win32-x64\bundled\scripts\noConfigScripts
+Waiting for frontend to be ready...
+[frontend-health-check] Attempt 1: HTTP 200
+Frontend health check passed: HTTP 200 OK.
+Frontend started.
+All tests passed. Servers left running for manual inspection.
+[LOG COMPLETE]

@@ -14,4 +14,10 @@
   description: Frontend root accessibility
   type: feature
   location: frontend/src/App.tsx
-  test_location: tests/integration/test_suite.py:run_all_tests 
+  test_location: tests/integration/test_suite.py:run_all_tests
+
+- id: frontend-champion-grid-e2e
+  description: Frontend champion grid renders at least one champion name (Playwright E2E)
+  type: e2e
+  location: frontend/src/components/ChampionGrid.tsx
+  test_location: tests/integration/test_playwright_e2e.py:test_champion_grid_renders 

@@ -1,16 +1,21 @@
 import os
 import sys
+from flask import Flask, jsonify, request
+from flask_cors import CORS
+import traceback
 if __name__ == "__main__":
     sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
     from utils.lol_api import LoLDataDragonAPI
 else:
     from backend.utils.lol_api import LoLDataDragonAPI
-from flask import Flask, jsonify
-from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
 lol_api = LoLDataDragonAPI()
+
+@app.before_request
+def log_request_info():
+    print(f"[backend] {request.method} {request.path}")
 
 @app.route('/api/data')
 def get_data():
@@ -29,5 +34,11 @@ def get_champions():
         return jsonify({"success": False, "error": str(e)}), 500
 
 if __name__ == '__main__':
-    port = int(os.environ.get("LOL_PICKBAN_PORT", 5000))
-    app.run(debug=True, host='0.0.0.0', port=port) 
+    try:
+        port = 5001  # Hardcoded for integration/test
+        print(f"[backend] FORCED: Flask app will always run on port {port} (cwd={os.getcwd()})")
+        app.run(debug=True, host='0.0.0.0', port=port)
+    except Exception as e:
+        print(f"[backend] FATAL ERROR: {e}")
+        traceback.print_exc()
+        sys.exit(2) 
