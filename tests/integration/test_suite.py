@@ -1,6 +1,7 @@
 import sys
-print("STARTING TEST SUITE (very top of file)")
 import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+print("STARTING TEST SUITE (very top of file)")
 import requests
 import time as pytime
 import subprocess
@@ -147,7 +148,6 @@ def start_frontend(logger, env, is_windows):
     frontend_proc = subprocess.Popen(
         frontend_cmd,
         cwd=frontend_dir, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding='utf-8', shell=False, env=env)
-    # Non-blocking output reading setup
     def enqueue_output(out, q):
         for line in iter(out.readline, ''):
             q.put(line)
@@ -156,6 +156,22 @@ def start_frontend(logger, env, is_windows):
     t_out = threading.Thread(target=enqueue_output, args=(frontend_proc.stdout, q_out))
     t_out.daemon = True
     t_out.start()
+    def log_frontend_output(q, logger):
+        while True:
+            try:
+                line = q.get(timeout=0.5)
+                if line:
+                    logger.log(f"[frontend] {line.rstrip()}")
+            except Exception:
+                if frontend_proc.poll() is not None:
+                    while not q.empty():
+                        line = q.get()
+                        if line:
+                            logger.log(f"[frontend] {line.rstrip()}")
+                    break
+    t_log = threading.Thread(target=log_frontend_output, args=(q_out, logger))
+    t_log.daemon = True
+    t_log.start()
     logger.log("Waiting for frontend to be ready...", to_console=True)
     frontend_ready = False
     max_retries = 3
@@ -177,7 +193,7 @@ def start_frontend(logger, env, is_windows):
         frontend_proc.kill()
         sys.exit(1)
     logger.log("Frontend started.", to_console=True)
-    return frontend_proc
+    return frontend_proc, t_log, q_out
 
 # --- Main Test Logic ---
 def run_all_tests(logger):
@@ -210,64 +226,60 @@ def run_all_tests(logger):
 
     # Start backend and frontend
     backend_proc = start_backend(logger, env)
-    frontend_proc = start_frontend(logger, env, is_windows)
+    frontend_proc, frontend_log_thread, frontend_q_out = start_frontend(logger, env, is_windows)
 
     # --- ACTUAL TESTS ---
     all_passed = True
 
     # Test GET /api/data
-    logger.log("Testing backend /api/data endpoint...")
+    logger.log("Testing backend /api/data endpoint...", to_console=True)
     try:
         resp = requests.get(f"{BACKEND_URL}/api/data", timeout=5)
         if resp.status_code == 200 and resp.json().get("message") == "Hello from Flask!":
-            logger.log("Backend /api/data test PASSED.")
+            logger.log("Backend /api/data test PASSED.", to_console=True)
         else:
-            logger.log(f"Backend /api/data test FAILED. Status: {resp.status_code}, Body: {resp.text}")
+            logger.log(f"Backend /api/data test FAILED. Status: {resp.status_code}, Body: {resp.text}", to_console=True)
             all_passed = False
     except Exception as e:
-        logger.log(f"Backend /api/data test EXCEPTION: {e}")
+        logger.log(f"Backend /api/data test EXCEPTION: {e}", to_console=True)
         all_passed = False
 
     # Test GET /api/champions
-    logger.log("Testing backend /api/champions endpoint...")
+    logger.log("Testing backend /api/champions endpoint...", to_console=True)
     try:
         resp = requests.get(f"{BACKEND_URL}/api/champions", timeout=10)
         data = resp.json()
         if resp.status_code == 200 and data.get("success") and isinstance(data.get("champions"), list) and len(data["champions"]) > 0:
-            logger.log(f"Backend /api/champions test PASSED. Count: {data['count']}")
+            logger.log(f"Backend /api/champions test PASSED. Count: {data['count']}", to_console=True)
         else:
-            logger.log(f"Backend /api/champions test FAILED. Status: {resp.status_code}, Body: {resp.text}")
+            logger.log(f"Backend /api/champions test FAILED. Status: {resp.status_code}, Body: {resp.text}", to_console=True)
             all_passed = False
     except Exception as e:
-        logger.log(f"Backend /api/champions test EXCEPTION: {e}")
+        logger.log(f"Backend /api/champions test EXCEPTION: {e}", to_console=True)
         all_passed = False
 
     # Test frontend-backend integration: fetch /api/champions and render
-    logger.log("Testing frontend-backend integration: /api/champions rendering...")
+    logger.log("Testing frontend-backend integration: /api/champions rendering...", to_console=True)
+    # Run Playwright E2E tests (import and call directly)
+    logger.log("Running Playwright E2E tests (smoke and grid)...", to_console=True)
     try:
-        html = requests.get(FRONTEND_URL, timeout=10).text
-        soup = BeautifulSoup(html, 'html.parser')
-        # Try to find at least one champion name in the HTML
-        resp = requests.get(f"{BACKEND_URL}/api/champions", timeout=10)
-        data = resp.json()
-        champion_names = [c['name'] for c in data.get('champions', []) if isinstance(c, dict) and 'name' in c]
-        found = False
-        for name in champion_names:
-            if soup.body and soup.body.find(string=name):
-                found = True
-                break
-        if found:
-            logger.log("Frontend-backend integration test PASSED: At least one champion name rendered.")
-        else:
-            logger.log("Frontend-backend integration test FAILED: No champion names found in frontend HTML.")
+        from tests.integration.test_playwright_e2e import run_all_e2e_tests
+        def tee_log(msg):
+            logger.log(msg)
+        e2e_results = run_all_e2e_tests(log=tee_log)
+        logger.log(f"[E2E Results] {e2e_results}")
+        if not (e2e_results['grid'].get('success') and e2e_results['smoke']):
+            logger.log("Playwright E2E test FAILED.", to_console=True)
             all_passed = False
+        else:
+            logger.log("Playwright E2E test PASSED.", to_console=True)
     except Exception as e:
-        logger.log(f"Frontend-backend integration test EXCEPTION: {e}")
+        logger.log(f"Playwright E2E test EXCEPTION: {e}", to_console=True)
         all_passed = False
 
     cleanup_old_logs(10)
     print("[DEBUG] run_all_tests complete")
-    return all_passed, backend_proc, frontend_proc
+    return all_passed, backend_proc, frontend_proc, frontend_log_thread, frontend_q_out
 
 # --- Main Entrypoint ---
 def main():
@@ -328,7 +340,7 @@ sys.exit(2)
             signal.signal(signal.SIGALRM, sigalrm_handler)
             signal.alarm(timeout_seconds)
         print("[DEBUG] About to run all tests")
-        all_passed, backend_proc, frontend_proc = run_all_tests(logger)
+        all_passed, backend_proc, frontend_proc, frontend_log_thread, frontend_q_out = run_all_tests(logger)
         print("[DEBUG] run_all_tests returned")
         if all_passed:
             logger.log("All tests passed. Servers left running for manual inspection.")
@@ -336,6 +348,15 @@ sys.exit(2)
         else:
             logger.log("Some tests failed. Servers left running for debugging.")
     finally:
+        # Flush any remaining frontend output before closing logger
+        if 'frontend_log_thread' in locals() and 'frontend_q_out' in locals():
+            import time
+            time.sleep(1)  # Give a moment for any last lines
+            while not frontend_q_out.empty():
+                line = frontend_q_out.get()
+                if line:
+                    logger.log(f"[frontend] {line.rstrip()}")
+            frontend_log_thread.join(timeout=2)
         logger.log("[LOG COMPLETE]")
         logger.close()
         if sys.platform == 'win32' and 'watchdog_proc' in locals() and watchdog_proc:
